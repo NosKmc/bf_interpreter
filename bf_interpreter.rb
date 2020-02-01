@@ -2,9 +2,9 @@
 
 class Brainfuck
   def initialize(src)
-    @ptr = 0
-    @mema = 0
-    @mem = []
+    @saddr = 0
+    @maddr = 0
     @script = src
+    @mem = []
   end
 end
