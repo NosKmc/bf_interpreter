@@ -23,6 +23,8 @@ class Brainfuck
       @mem[@maddr]+=1
     when "-"
       @mem[@maddr]-=1
+    when "."
+      print @mem[@maddr].chr
     end
     read()
   end
