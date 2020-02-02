@@ -5,7 +5,7 @@ class Brainfuck
     @script = src.gsub(/\r\n|\r|\n|\s|\t/, "")
     @parpair = parse
     @rstack = []
-    @mem = Array.new(100,0)
+    @mem = Array.new(30000,0)
   end
 
   def read()
