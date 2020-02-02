@@ -6,14 +6,14 @@ class Brainfuck
     @maddr = 0
     @script = src.gsub(/\r\n|\r|\n|\s|\t/, "")
     @parpair = parse
+    @rstack = []
     p @parpair #あとでけす
     @mem = Array.new(100,0)
   end
 
   def read()
     ord = @script[@saddr]
-    return if ord.nil?
-    @saddr+=1
+    return false if ord.nil?
 
     # > < + - . , [ ]
     case ord
@@ -29,9 +29,18 @@ class Brainfuck
       print @mem[@maddr].chr
     when ","
       @mem[@maddr] = gets.to_i
+    when "["
+      if @mem[@maddr] == 0
+        @saddr = @parpair[@saddr]
+      else
+        @rstack.push(@saddr)
+      end
+    when "]"
+      @saddr = @rstack.pop - 1
     end
-    
-    read()
+
+    @saddr+=1
+    return true
   end
 
   def parse()
@@ -51,6 +60,12 @@ class Brainfuck
     end
     pars
   end
+
+  def run()
+    loop do
+      break unless read()
+    end
+  end
 end
 
 
@@ -62,6 +77,8 @@ s="++++++++++++++++++++++++++++++++
 +++++++.
 --------.
 --."
+s="++++++++++[>++++++++++<-]>
+++++.+++++++.--------.--."
 
 bf = Brainfuck.new(s)
-bf.read()
+bf.run()
