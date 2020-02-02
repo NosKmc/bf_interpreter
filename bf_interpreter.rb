@@ -5,6 +5,8 @@ class Brainfuck
     @saddr = 0
     @maddr = 0
     @script = src.gsub(/\r\n|\r|\n|\s|\t/, "")
+    @parpair = parse
+    p @parpair #あとでけす
     @mem = Array.new(100,0)
   end
 
@@ -28,7 +30,26 @@ class Brainfuck
     when ","
       @mem[@maddr] = gets.to_i
     end
+    
     read()
+  end
+
+  def parse()
+    l = @script.length
+    rstack = []
+    pars = {}
+    
+    l.times do |i|
+      o = @script[i]
+      case o
+      when "["
+        rstack.push(i)
+      when "]"
+        r = rstack.pop
+        pars[r] = i
+      end
+    end
+    pars
   end
 end
 
