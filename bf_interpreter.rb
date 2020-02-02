@@ -25,6 +25,8 @@ class Brainfuck
       @mem[@maddr]-=1
     when "."
       print @mem[@maddr].chr
+    when ","
+      @mem[@maddr] = gets.to_i
     end
     read()
   end
