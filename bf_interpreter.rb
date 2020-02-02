@@ -1,5 +1,3 @@
-# coding: utf-8
-
 class Brainfuck
   def initialize(src)
     @saddr = 0
